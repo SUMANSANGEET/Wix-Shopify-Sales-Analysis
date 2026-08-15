@@ -1,24 +1,57 @@
 # 🛍️ Shopify Sales Analytics Dashboard
 
-**An end-to-end Power BI analytics solution turning raw Shopify e-commerce data into actionable revenue, customer, and product insights.**
+**A Power BI Business Intelligence project transforming raw Shopify transaction data into an interactive dashboard covering revenue performance, customer purchasing behavior, and long-term customer value.**
 
 [![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)](https://powerbi.microsoft.com/)
 [![DAX](https://img.shields.io/badge/DAX-217346?style=for-the-badge&logo=microsoftexcel&logoColor=white)](https://learn.microsoft.com/en-us/dax/)
+[![Power Query](https://img.shields.io/badge/Power%20Query-004E8C?style=for-the-badge&logo=microsoftexcel&logoColor=white)](https://learn.microsoft.com/en-us/power-query/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
-[![Data Source](https://img.shields.io/badge/Data-Shopify-95BF47?style=for-the-badge&logo=shopify&logoColor=white)](#)
 
 🔗 **[Live Interactive Demo →](https://wix-shopify-sales-analysis-tw8dnzyuqy46fzhhwtecrm.streamlit.app/)**
 
 ---
 
-## 📌 Overview
+## 📋 Project Summary
 
-This project is a multi-page **Power BI** dashboard built on top of Shopify order and customer data. It's designed to give e-commerce stakeholders (marketing, merchandising, and leadership teams) a single source of truth for **revenue performance, customer retention, and product/regional trends** — paired with a lightweight **Streamlit** app for interactive, web-based exploration.
+This project analyzes Shopify sales and transaction data in **Power BI** to uncover patterns in revenue generation, purchasing behavior, and customer retention. Using **Power Query** for data cleaning and shaping, a structured **data model**, and custom **DAX measures**, the raw export was transformed into a 4-page interactive dashboard designed to be read top-to-bottom: headline KPIs first, then trends, then supporting detail.
 
-The report goes beyond static charts: each analytical page includes **narrative "insight" call-outs** written alongside the visuals, translating chart patterns into business takeaways — a habit borrowed from real analyst-facing reporting.
+The report is built for e-commerce stakeholders — marketing, merchandising, and leadership — who need one place to answer "how is the business doing, who are our best customers, and what should we do next?" without digging through spreadsheets. A companion **Streamlit** app makes the findings accessible in the browser without needing Power BI Desktop installed.
 
-**Why this project?**
-This was built to demonstrate practical, job-ready BI skills: data modeling, DAX measure design, UX-driven dashboard layout, and the ability to communicate insight — not just display numbers.
+**Deliverable:** A single interactive `.pbix` Power BI dashboard (4 pages, 36 visuals) plus a lightweight web version, covering revenue trends, product/regional performance, customer segmentation, and retention analysis.
+
+---
+
+## ❓ Problem Statement
+
+Shopify stores generate large volumes of raw, transaction-level data — but that data alone doesn't tell a store owner *where revenue is coming from, which customers are worth investing in, or why customers stop buying.* Without a consolidated view:
+
+- Revenue trends and seasonal patterns go unnoticed until they show up in the bank account
+- It's unclear which products or regions actually drive profitability versus which are underperforming
+- There's no visibility into how many customers are one-time buyers versus repeat, high-value customers
+- Retention is managed reactively instead of proactively, because there's no measure of *when* customers typically churn or how long the gap is between a first and second purchase
+- Decisions about marketing spend, inventory, and loyalty programs are made on instinct rather than evidence
+
+**The core problem:** stakeholders lack a fast, visual, and interactive way to turn raw Shopify exports into decisions about growth and retention.
+
+---
+
+## 🎯 Goals & Objectives
+
+**Primary goal:** Design an interactive Power BI dashboard that helps stakeholders spot patterns in revenue generation, customer retention, and engagement so they can make data-driven decisions — without needing to write a query themselves.
+
+**Key business questions the dashboard answers:**
+1. What is total revenue, order volume, and average order value — and how are they trending over time?
+2. Which products and cities generate the most (and least) revenue?
+3. What share of customers are new versus returning, and how are they distributed by spend?
+4. What is the repeat-purchase rate, and what does the customer retention funnel look like?
+5. Which customer segments have the highest Customer Lifetime Value (CLV), and how should the business prioritize keeping them?
+
+**Objectives / steps taken to get there:**
+- **Import & clean** the Shopify export in Power Query — correcting data types, handling missing values, removing duplicates, and adding helper columns (e.g., month/year, repeat-order flags)
+- **Model the data** around a fact table (`shopify_sales`) with supporting dimension tables (`Date`, `Funnel Stage`, `Table1`, `Weekday Table`), with `Date` marked as the dedicated calendar table for accurate time intelligence
+- **Build DAX measures** for revenue, orders, AOV, growth %, repeat-purchase rate, purchase frequency, and CLV
+- **Design an interactive, filterable dashboard** — with slicers for year, product, customer ID, and segment — so a stakeholder can explore the data themselves, not just view a static report
+- **Surface plain-language insights** next to the relevant visual on every analytical page, so the "so what" is never more than a glance away
 
 ---
 
@@ -30,7 +63,7 @@ KPI summary, revenue trend, product and city breakdown, and a live drill-through
 ![Main Dashboard](screenshots/01-main-dashboard.png)
 
 ### 2. Insights & Trends — Product & Regional Performance
-Revenue-by-product treemap, AOV vs. order volume scatter analysis, product ranking over time, and a revenue-by-city map — each with a written insight panel.
+Revenue-by-product treemap, AOV vs. order volume scatter analysis, product ranking over time, and a revenue-by-city map.
 
 ![Insights & Trends](screenshots/02-insights-trends.png)
 
@@ -55,40 +88,33 @@ A cross-tab matrix of revenue by product category and city, plus a revenue-growt
 | **Insights & Trends (II)** | Revenue volatility & retention | Waterfall chart, customer retention funnel |
 | **Insights & Trends (III)** | Cross-dimensional performance | Product × City matrix table, revenue growth vs. target gauge |
 
-**36 visuals across 4 pages**, including KPI cards, slicers, a treemap, waterfall, funnel, ribbon chart, scatter plot, map, pivot/matrix table, and gauge — chosen deliberately to fit the analytical purpose of each page rather than repeating one chart type throughout.
+## 📊 Data Model & Key Measures
+
+**Tables:** `shopify_sales` (fact) · `Date` (calendar/dimension) · `Funnel Stage` (lookup) · `Table1` / `Weekday Table` (supporting dimensions)
+
+**DAX measures:** `Total Revenue` · `Total Orders` · `Unique Customers` · `AOV` · `Revenue Growth %` · `Revenue Target` · `Revenue Per Customer` · `Customer Revenue` · `CLV` · `Purchase Frequency` · `Repeat Customers` · `Repeat Purchase Rate`
 
 ---
 
-## 📊 Data Model
+## 🔍 Key Insights & Recommendations
 
-| Table | Role |
+| Insight | Recommendation |
 |---|---|
-| `shopify_sales` | Core fact table — order-level transactions (Customer ID, City, Product Type, revenue) |
-| `Date` | Date dimension table hosting the primary DAX measures |
-| `Funnel Stage` | Lookup table driving the customer retention funnel stages |
-| `Table1` / `Weekday Table` | Supporting dimension tables |
-
-**Key measures (DAX):**
-`Total Revenue` · `Total Orders` · `Unique Customers` · `AOV (Average Order Value)` · `Revenue Growth %` · `Revenue Target` · `Revenue Per Customer` · `Customer Revenue` · `CLV (Customer Lifetime Value)` · `Purchase Frequency` · `Repeat Customers` · `Repeat Purchase Rate`
-
----
-
-## 🔍 Sample Insights Surfaced
-
-- A small subset of product categories (Running, Walking, and Cycling Shoes) generate the majority of total revenue — informing inventory and promotional prioritization.
-- Months with both high order volume **and** high AOV were identified as the strongest revenue contributors, flagged for campaign replication.
-- Of ~10,000 customers, only a fraction convert to repeat buyers and an even smaller group become high-value customers — pinpointing where loyalty/retention programs would have the most leverage.
-- City-level and product-level cross analysis highlights regional demand differences to support localized marketing and stocking decisions.
+| A small subset of product categories (Running, Walking, Cycling Shoes) drive the majority of total revenue | Prioritize these categories in inventory planning and promotional campaigns |
+| Certain months combine both high order volume and high AOV | Analyze what drove those periods and replicate the conditions in future campaigns |
+| Of roughly 10,000 customers, only a fraction become repeat buyers, and fewer still become high-value customers | Invest in loyalty and re-engagement programs targeted at first-time buyers to shift them into the repeat tier |
+| Revenue and product demand vary meaningfully by city | Use city-level performance to guide localized marketing and stock allocation |
+| Monthly revenue shows clear increase/decrease swings rather than flat growth | Treat growth months as a template — investigate what changed operationally or in marketing spend during those periods |
 
 ---
 
 ## 🛠️ Tech Stack
 
 - **Power BI Desktop** — data modeling, DAX, report design
-- **Power Query** — data shaping/transformation
+- **Power Query** — data cleaning, transformation, helper columns
 - **DAX** — custom measures for revenue, retention, and customer-value KPIs
-- **Streamlit** — companion interactive web app for lightweight access without Power BI Desktop
-- **Shopify export data** — order, customer, and product-level source data
+- **Streamlit** — companion interactive web app
+- **Shopify export data** — order, customer, and product-level transaction data
 
 ---
 
@@ -103,12 +129,13 @@ Or skip the install — explore the **[live Streamlit version](https://wix-shopi
 
 ---
 
-## 📈 Roadmap / Next Iteration
+## ✅ Conclusion
 
-- [ ] Resolve blank/placeholder values on the Revenue Growth KPI and gauge visual
-- [ ] Add RLS (row-level security) for regional stakeholder access
-- [ ] Incorporate a cohort-based retention analysis
-- [ ] Automate refresh via Power BI Service scheduled refresh / dataflow
+This project demonstrates a complete, self-contained BI workflow — from raw Shopify export to a polished, interactive decision-support tool — covering the full analytics lifecycle: data cleaning (Power Query), data modeling (star-schema-style fact/dimension design), analysis (DAX), and communication (dashboard design and written insights).
+
+The resulting dashboard gives stakeholders clear, evidence-based answers to the questions that matter most for growing a Shopify business: where revenue comes from, who the most valuable customers are, and where retention is leaking. Rather than stopping at charts, each page pairs the visual with a plain-language takeaway and a concrete next step — turning the dashboard from a reporting tool into a decision-making tool.
+
+**Next iteration:** resolve the current blank/placeholder values on the Revenue Growth KPI and gauge visual, add a formal cohort retention analysis by first-purchase month, and configure row-level security (RLS) for regional stakeholder access.
 
 ---
 
