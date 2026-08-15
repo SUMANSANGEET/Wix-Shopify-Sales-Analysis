@@ -141,8 +141,8 @@ The resulting dashboard gives stakeholders clear, evidence-based answers to the 
 
 ## 👤 Author
 
-**[Your Name]**
-📧 [your.email@example.com](mailto:sumansangeet789@example.com) · in [LinkedIn](www.linkedin.com/in/p-suman-sangeet) · 
+**[P Suman Sangeet]**
+📧 [Gmail](mailto:sumansangeet789@example.com) · in [LinkedIn](www.linkedin.com/in/p-suman-sangeet) · 
 
 *Open to Data Analyst / BI Analyst opportunities — feel free to reach out.*
 
